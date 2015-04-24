@@ -203,14 +203,17 @@ class StegaBits:
             return None
         return self.__bit_str_to_str(text)
 
-    def get_text(self):
+    def get_text(self, dont_decrypt=False):
         """ Retrieves hidden text from visible image with or without encryption enabled
         return: The hidden text or None if not found
         """
         text = self.__get_bits_by_null(self.__get_text_offset())
         if text == None:
             return None
-        return self.__decrypt(self.__bit_str_to_str(text))
+        if dont_decrypt:
+            return self.__bit_str_to_str(text)
+        else:
+            return self.__decrypt(self.__bit_str_to_str(text))
 
     def get_text_checksum(self):
         """ Extracts from the visible image the hidden text's checksum value
